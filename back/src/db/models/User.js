@@ -11,13 +11,13 @@ class User {
     return user;
   }
 
-  static async findById({ userId }) {
-    const user = await UserModel.findOne({ id: userId });
+  static async findByNickname({ nickname }) {
+    const user = await UserModel.findOne({ nickname });
     return user;
   }
 
-  static async findByNickname({ nickname }) {
-    const user = await UserModel.findOne({ nickname });
+  static async findById({ userId }) {
+    const user = await UserModel.findOne({ id: userId });
     return user;
   }
 
@@ -211,6 +211,14 @@ class User {
       option
     );
     return updatedUser;
+  }
+
+  static async addAchivements({ id }) {
+    return await UserModel.updateMany(
+      {},
+      { $push: { achievements: { id, status: 0 } } },
+      { new: true }
+    );
   }
 }
 
