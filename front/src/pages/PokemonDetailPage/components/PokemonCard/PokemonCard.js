@@ -9,6 +9,8 @@ import Avatar from '@mui/material/Avatar';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+import { pokemonURL } from '../../../../core/constants/ImgSrc';
+
 function pokemonCard({
 	pokemon,
 	iconOne,
@@ -28,8 +30,6 @@ function pokemonCard({
 		attack,
 		defense,
 	} = pokemon;
-
-	const imgSrc = `https://d31z0g5vo6ghmg.cloudfront.net/pokemons/${id}.png`;
 
 	return (
 		<Container fixed sx={{ minWidth: 800 }}>
@@ -73,12 +73,15 @@ function pokemonCard({
 							<Box sx={{ width: '90%', margin: '0' }}>
 								<hr />
 							</Box>
-							<CardMedia
-								component='img'
-								image={imgSrc}
-								alt='pokemon'
-								sx={{ width: '100%', height: '100%', padding: '20px' }}
-							/>
+							{pokemon && (
+								<CardMedia
+									component='img'
+									image={`${pokemonURL}/${id}.png`}
+									alt='pokemon'
+									sx={{ width: '100%', height: '100%', padding: '20px' }}
+								/>
+							)}
+
 							<CardContent>
 								<Grid
 									container
@@ -94,7 +97,8 @@ function pokemonCard({
 										md={4}
 										sx={{ border: '1px solid black', borderRadius: '5px' }}
 									>
-										키 <br /> {height} m
+										키 <br />
+										{height} m
 									</Grid>
 									<Grid
 										item
@@ -106,7 +110,8 @@ function pokemonCard({
 										}}
 									>
 										몸무게
-										<br /> {weight} kg
+										<br />
+										{weight} kg
 									</Grid>
 									<Grid
 										item
@@ -114,8 +119,9 @@ function pokemonCard({
 										md={4}
 										sx={{ border: '1px solid black', borderRadius: '5px' }}
 									>
-										총 능력치
-										<br /> {totalPoints}
+										종합점수
+										<br />
+										{totalPoints}
 									</Grid>
 									<Grid
 										item
@@ -133,7 +139,8 @@ function pokemonCard({
 										sx={{ border: '1px solid black', borderRadius: '5px' }}
 									>
 										공격력
-										<br /> {attack}
+										<br />
+										{attack}
 									</Grid>
 									<Grid
 										item

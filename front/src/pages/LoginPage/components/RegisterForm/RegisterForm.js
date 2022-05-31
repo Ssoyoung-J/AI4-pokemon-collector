@@ -16,19 +16,24 @@ import {
 	FormLabel,
 } from '@mui/material';
 import { CatchingPokemon } from '@mui/icons-material';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import IconObj from '../../../../core/Icon';
 
 import * as Api from '../../../../api';
 
 function RegisterPage({ setLogin }) {
+	const [birth, setBirth] = useState();
+
 	const [inputs, setInputs] = useState({
 		email: '',
 		password: '',
 		nickname: '',
 		sex: 'male',
-		age: '',
 		interest: 3,
 		likeType: '',
+		birth: '',
 	});
 	const types = [
 		'노말',
@@ -73,6 +78,11 @@ function RegisterPage({ setLogin }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		setInputs({
+			...inputs,
+			birth: Date(birth),
+		});
+
 		try {
 			// "user/register" 엔드포인트로 post요청함.
 			await Api.post('user/register', inputs);
@@ -105,15 +115,14 @@ function RegisterPage({ setLogin }) {
 					marginBottom: '2%',
 				}}
 			/>
-			{!isEmailValid && (
-				<Typography
-					variant='caption'
-					className='text-success'
-					sx={{ width: '70%', margin: 'auto', marginBottom: '1%' }}
-				>
-					이메일 형식이 올바르지 않습니다.
-				</Typography>
-			)}
+			<Typography
+				variant='caption'
+				className='text-success'
+				sx={{ width: '70%', margin: 'auto', marginBottom: '1%' }}
+				visibility={isEmailValid && 'hidden'}
+			>
+				이메일 형식이 올바르지 않습니다.
+			</Typography>
 			<TextField
 				required
 				name='password'
@@ -125,19 +134,13 @@ function RegisterPage({ setLogin }) {
 				onChange={onChange}
 				sx={{ width: '70%', margin: 'auto', marginBottom: '2%' }}
 			/>
-			{!isPasswordValid && (
-				<Typography
-					variant='caption'
-					className='text-success'
-					sx={{
-						width: '70%',
-						margin: 'auto',
-						marginBottom: '1%',
-					}}
-				>
-					비밀번호는 4글자 이상입니다.
-				</Typography>
-			)}
+			<Typography
+				className='text-success'
+				sx={{ width: '70%', margin: 'auto', marginBottom: '1%' }}
+				visibility={isPasswordValid && 'hidden'}
+			>
+				비밀번호는 4글자 이상입니다.
+			</Typography>
 			<TextField
 				required
 				size='small'
@@ -149,7 +152,7 @@ function RegisterPage({ setLogin }) {
 				sx={{ width: '70%', margin: 'auto', marginBottom: '1%' }}
 			/>
 			<Grid container spacing={2} sx={{ width: '90%', margin: 'auto' }}>
-				<Grid item xs={6} sm={6}>
+				<Grid item xs={5} md={5}>
 					<FormControl sx={{ margin: 'auto' }} required>
 						<FormLabel>성별</FormLabel>
 						<RadioGroup
@@ -168,19 +171,25 @@ function RegisterPage({ setLogin }) {
 						</RadioGroup>
 					</FormControl>
 				</Grid>
-				<Grid item xs={6} sm={5}>
-					<TextField
-						required
-						id='filled-number'
-						label='나이'
-						name='age'
-						InputLabelProps={{
-							shrink: true,
-						}}
-						variant='standard'
-						size='small'
-						onChange={onChange}
-					/>
+				<Grid item xs={6} md={6}>
+					<LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DesktopDatePicker
+							label='생년월일'
+							value={birth}
+							disableFuture
+							inputFormat='yyyy-MM-dd'
+							mask='____-__-__'
+							onChange={(newValue) => {
+								setBirth(newValue);
+								setInputs({
+									...inputs,
+									birth: Date(birth),
+								});
+							}}
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							renderInput={(params) => <TextField {...params} />}
+						/>
+					</LocalizationProvider>
 				</Grid>
 
 				<Grid item xs={6} sm={6}>

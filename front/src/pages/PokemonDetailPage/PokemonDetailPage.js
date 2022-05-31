@@ -10,7 +10,8 @@ import * as Api from '../../api';
 import IconObj from '../../core/Icon';
 
 function PokemonDetailPage() {
-	const [pokemon, setPokemon] = useState([]);
+	const [pokemon, setPokemon] = useState({});
+	const [radarDataOne, setRadarDataOne] = useState(null);
 	const params = useParams();
 
 	useEffect(() => {
@@ -18,7 +19,12 @@ function PokemonDetailPage() {
 			const response = await Api.get('pokemon', params.pokemonId);
 			setPokemon(response.data);
 		};
+		const fetchRadarData = async () => {
+			const response = await Api.get('pokemonData', params.pokemonId);
+			setRadarDataOne(response.data);
+		};
 		fetchPokemonOne();
+		fetchRadarData();
 	}, []);
 
 	const { typeOne, typeTwo } = pokemon;
@@ -32,16 +38,18 @@ function PokemonDetailPage() {
 		<Container sx={{ marginTop: '165px', width: '100%' }}>
 			<Grid container>
 				<Grid item xs={6} md={6}>
-					<PokemonCard
-						pokemon={pokemon}
-						iconOne={iconOne}
-						typeOneColor={typeOneColor}
-						iconTwo={iconTwo}
-						typeTwoColor={typeTwoColor}
-					/>
+					{pokemon && (
+						<PokemonCard
+							pokemon={pokemon}
+							iconOne={iconOne}
+							typeOneColor={typeOneColor}
+							iconTwo={iconTwo}
+							typeTwoColor={typeTwoColor}
+						/>
+					)}
 				</Grid>
 				<Grid item xs={6} md={6} sx={{ display: 'flex' }}>
-					<PokemonRadar pokemon={pokemon} typeOneColor={typeOneColor} />
+					{radarDataOne && <PokemonRadar radarDataOne={radarDataOne} />}
 				</Grid>
 			</Grid>
 		</Container>
