@@ -15,6 +15,7 @@ import DefaultBookCard from './components/DefaultBookCard/DefaultBookCard';
 import PokemonBookCard from './components/PokemonBookCard/PokemonBookCard';
 import ScrollUpButton from '../../components/commons/ScrollUpButton';
 import ImgSrc from '../../core/constants/ImgSrc';
+import RankingButton from '../../components/commons/RankingButton';
 
 import * as Api from '../../api';
 
@@ -71,7 +72,7 @@ function IllustratedBookPage() {
   };
 
   return (
-    <div style={{ paddingTop: '170px', paddingBottom: '50px' }}>
+    <div style={{ marginTop: '25vh', marginBottom: '20vh' }}>
       <FormControl
         style={{ width: '200px', marginLeft: '40px', backgroundColor: 'white' }}
       >
@@ -148,6 +149,7 @@ function IllustratedBookPage() {
         {pokemonList.map((num) =>
           Object.keys(userPokemonObj).includes(num) ? (
             <PokemonBookCard
+              key={Number(num)}
               name={userPokemonObj[num]}
               selectType={String(selectType)}
               searchName={searchName}
@@ -155,6 +157,7 @@ function IllustratedBookPage() {
             />
           ) : (
             <DefaultBookCard
+              key={Number(num)}
               selectType={String(selectType)}
               searchName={searchName}
             />
@@ -162,6 +165,7 @@ function IllustratedBookPage() {
         )}
       </div>
       <ScrollUpButton />
+      <RankingButton />
     </div>
   );
 }

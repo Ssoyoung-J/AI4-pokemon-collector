@@ -3,13 +3,14 @@ import { AppBar, Toolbar, Button, Grid } from '@material-ui/core';
 import StatisticsButton from './components/StatisticsButton';
 import ScrollUpButton from '../../components/commons/ScrollUpButton';
 import WholeStatisticComponent from './components/WholeStatisticComponent';
+import RankingButton from '../../components/commons/RankingButton';
 
 function StatisticsPage() {
   const [isType, setIsType] = useState(false);
   const [isStats, setIsStats] = useState(false);
 
   return (
-    <div style={{ paddingTop: '170px', paddingBottom: '50px' }}>
+    <div style={{ marginTop: '25vh' }}>
       <WholeStatisticComponent />
       <AppBar
         position='static'
@@ -245,6 +246,7 @@ function StatisticsPage() {
         )}
       </div>
       <ScrollUpButton />
+      <RankingButton />
     </div>
   );
 }

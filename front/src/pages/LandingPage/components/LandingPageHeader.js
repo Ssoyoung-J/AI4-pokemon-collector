@@ -42,7 +42,7 @@ function LandingPageHeader({
         alignItems: 'center',
       }}
     >
-      <Toolbar style={{ width: '100vw' }}>
+      <Toolbar style={{ width: '80vw' }}>
         <HeaderMenu
           open={open}
           setOpen={setOpen}

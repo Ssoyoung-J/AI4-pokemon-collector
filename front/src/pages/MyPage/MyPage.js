@@ -3,6 +3,8 @@ import { Container, Grid, Typography, List, Box } from '@mui/material';
 import UserCard from './components/UserCard/UserCard';
 import MyStickerList from './components/MyStickerList/MyStickerList';
 import Achievement from './components/Achievement/Achievement';
+import ScrollUpButton from '../../components/commons/ScrollUpButton';
+import RankingButton from '../../components/commons/RankingButton';
 
 import * as Api from '../../api';
 
@@ -80,6 +82,8 @@ function MyPage() {
 						</Grid>
 					))}
 			</Grid>
+			<ScrollUpButton />
+			<RankingButton />
 		</Container>
 	);
 }

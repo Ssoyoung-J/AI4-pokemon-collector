@@ -1,110 +1,3 @@
-/**
- * @swagger
- *  components:
- *     schemas:
- *        user:
- *          type: object
- *          required:
- *            - id
- *            - email
- *            - password
- *            - nickname
- *            - sex
- *            - birth
- *            - interest
- *            - likeType
- *            - quizChance
- *          properties:
- *             id:
- *               type: string
- *             email:
- *               type: string
- *             password:
- *               type: string
- *             nickname:
- *               type: string
- *             sex:
- *               type: string
- *             birth:
- *               type: date
- *             interest:
- *               type: string
- *             likeType:
- *               type: string
- *             point:
- *               type: number
- *               default: 1000
- *             profileImg:
- *               type: String
- *               default: 'poketball.png'
- *             stickers:
- *               type: array
- *               items:
- *                 type: object
- *               properties:
- *                 id:
- *                   type: number
- *                 name:
- *                   type: string
- *                 count:
- *                   type: number
- *             isPointGiven:
- *               type: boolean
- *               default: true
- *             quizChance:
- *               type: number
- *               default: 3
- *             achievements:
- *               type: array
- *               items:
- *                 type: object
- *               default:
- *                - id: 1
- *                  status: 0
- *                - id: 2
- *                  status: 0
- *                - id: 1
- *                  status: 0
- *                - id: 3
- *                  status: 0
- *                - id: 4
- *                  status: 0
- *                - id: 5
- *                  status: 0
- *                - id: 6
- *                  status: 0
- *                - id: 7
- *                  status: 0
- *                - id: 8
- *                  status: 0
- *                - id: 9
- *                  status: 0
- *                - id: 10
- *                  status: 0
- *                - id: 11
- *                  status: 0
- *                - id: 12
- *                  status: 0
- *                - id: 13
- *                  status: 0
- *                - id: 14
- *                  status: 0
- *                - id: 15
- *                  status: 0
- *                - id: 16
- *                  status: 0
- *                - id: 17
- *                  status: 0
- *                - id: 18
- *                  status: 0
- *                - id: 19
- *                  status: 0
- *                - id: 20
- *                  status: 0
- *
- *
- */
-
 import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema(
@@ -151,13 +44,17 @@ const UserSchema = new Schema(
       default: 'pokeball.png',
       required: false,
     },
-    stickers: [
-      {
-        id: Number,
-        name: String,
-        count: Number,
-      },
-    ],
+    stickers: {
+      type: [
+        {
+          id: Number,
+          name: String,
+          count: Number,
+        },
+      ],
+      default: [],
+      required: false,
+    },
     attendance: {
       type: Date,
       required: false,
@@ -170,7 +67,7 @@ const UserSchema = new Schema(
     },
     quizChance: {
       type: Number,
-      required: true,
+      required: false,
       default: 3,
     },
     rankPoint: {
@@ -183,7 +80,7 @@ const UserSchema = new Schema(
       default: [
         {
           id: 1,
-          status: 0,
+          status: 100,
         },
         {
           id: 2,
@@ -257,8 +154,17 @@ const UserSchema = new Schema(
           id: 19,
           status: 0,
         },
+        {
+          id: 20,
+          status: 0,
+        },
+        {
+          id: 21,
+          status: 0,
+        },
       ],
     },
+    required: false,
   },
   {
     timestamps: true,
